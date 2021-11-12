@@ -1,15 +1,17 @@
 <template>
 	<ion-page>
-		<div>
-			<ion-icon name="reorder-three-outline" size="large"></ion-icon>
-			<ion-icon name="add-circle-outline" size="large"></ion-icon>
-		</div>
 
-		<div>
-			<ion-header>My Lists</ion-header>
-		</div>
+		<ion-header>
+			<ion-toolbar>
+				<ion-icon :icon="reorderThreeOutline" size="large" slot="start"></ion-icon>
 
-		<div>
+				<ion-title>My Lists</ion-title>
+				
+				<ion-icon :icon="addCircleOutline" size="large" slot="end"></ion-icon>
+			</ion-toolbar>
+		</ion-header>
+
+		<ion-content>
 			<ion-card>
 				<ion-card-header>
 					<ion-card-title>Monday dinner</ion-card-title>
@@ -25,7 +27,8 @@
 					</ion-item>
 				</ion-list>
 			</ion-card>
-		</div>
+		</ion-content>
+		
 	</ion-page>
 </template>
 
@@ -33,19 +36,20 @@
 
 
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel } from '@ionic/vue';
+import { IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { addCircleOutline,reorderThreeOutline} from 'ionicons/icons';
 
 export default defineComponent({
 
 	components:{
-		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel
+		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent
 	},
 
 	setup(){
 
 		return{
-
+			addCircleOutline,
+			reorderThreeOutline
 		}
 	}
 

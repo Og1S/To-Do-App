@@ -1,8 +1,8 @@
 <template>
 	<ion-page>
 		<div>
-			<ion-icon name="chevron-back-outline" size="large" class="backicon"></ion-icon>
-			<ion-icon name="trash-outline" size="large" class="trashicon"></ion-icon>
+			<ion-icon :icon="chevronBackOutline" size="large" class="backicon"></ion-icon>
+			<ion-icon :icon="trashOutline" size="large" class="trashicon"></ion-icon>
 		</div>
 
 		<div>
@@ -45,7 +45,8 @@ export default defineComponent({
 	setup(){
 
 		return{
-
+			chevronBackOutline,
+			trashOutline
 		}
 	}
 
