@@ -23,7 +23,7 @@
 					</ion-item>
 					<ion-item>
 						<ion-label>Airline</ion-label>
-						<ion-label>2 piece</ion-label>
+						<ion-label class="highlight">2 piece</ion-label>
 					</ion-item>
 				</ion-list>
 			</ion-card>
@@ -66,6 +66,20 @@ ion-icon {
 ion-header{
 	color: white;
 	font-size: 40px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 600;
 }
 
+ion-list{
+	font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	color: white;
+	font-weight: 300;
+}
+
+.highlight {
+	background-color: rgb(3, 100, 211);
+	border-radius: 15%;
+	border-right: 2px solid  rgb(3, 100, 211);
+	color: white !important;
+}
 </style>
