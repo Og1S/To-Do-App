@@ -12,7 +12,7 @@
 		</ion-header>
 
 		<ion-content>
-			<ion-card>
+			<ion-card @click="goToTodo()">
 				<ion-card-header>
 					<ion-card-title>Monday dinner</ion-card-title>
 				</ion-card-header>
@@ -44,6 +44,13 @@ export default defineComponent({
 	components:{
 		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent
 	},
+
+	methods: {
+		goToTodo() {
+			this.$router.push('/todo'); 
+		},
+	},
+
 
 	setup(){
 
