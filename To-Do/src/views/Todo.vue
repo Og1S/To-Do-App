@@ -104,7 +104,8 @@ export default defineComponent({
 }
 
 .inputB{
-	color: black;
+	background-color: black;
+	border: none;
 }
 
 </style>
