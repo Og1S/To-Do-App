@@ -17,7 +17,7 @@
 				</ion-item>
 
 				<ion-item>
-					<input type="text" v-model="todo" placeholder="Add ToDo">
+					<input type="text" v-model="todo" placeholder="Add ToDo" class="inputB">
 					<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="addTodo"></ion-icon>
 					<!-- <button @click="addTodo">add</button> -->
 				</ion-item>
@@ -101,6 +101,10 @@ export default defineComponent({
 
 .trashicon{
 	color: red;
+}
+
+.inputB{
+	color: black;
 }
 
 </style>
