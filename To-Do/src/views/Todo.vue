@@ -106,6 +106,8 @@ export default defineComponent({
 .inputB{
 	background-color: black;
 	border: none;
+	outline-width: 0;
+
 }
 
 </style>
