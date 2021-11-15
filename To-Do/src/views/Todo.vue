@@ -107,7 +107,6 @@ export default defineComponent({
 	background-color: black;
 	border: none;
 	outline-width: 0;
-
 }
 
 </style>
