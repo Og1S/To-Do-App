@@ -19,11 +19,11 @@
 				<ion-list>
 					<ion-item>
 						<ion-label>Airline</ion-label>
-						<ion-label>3 kg</ion-label>
+						<ion-badge>3 kg</ion-badge>
 					</ion-item>
 					<ion-item>
 						<ion-label>Airline</ion-label>
-						<ion-label class="highlight">2 piece</ion-label>
+						<ion-badge>2 piece</ion-badge>
 					</ion-item>
 				</ion-list>
 			</ion-card>
@@ -83,10 +83,4 @@ ion-list{
 	font-weight: 300;
 }
 
-.highlight {
-	background-color: rgb(3, 100, 211);
-	border-radius: 15%;
-	border-right: 2px solid  rgb(3, 100, 211);
-	color: white !important;
-}
 </style>

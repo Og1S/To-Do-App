@@ -13,11 +13,12 @@
 				<ion-item v-for="todo in todos" v-bind:key="todo.id">
 					<ion-checkbox></ion-checkbox>
 					<ion-label>{{ todo.text }}</ion-label>
-					<ion-label>3 kg</ion-label>
+					<ion-badge @click="changeBadge">3 kg</ion-badge>
 				</ion-item>
 
 				<ion-item>
-					<input type="text" v-model="todo" placeholder="Add ToDo" class="inputB">
+					<ion-checkbox :disabled="true"></ion-checkbox>
+					<ion-input type="text" v-model="todo" placeholder="Add ToDo" class="inputB"></ion-input>
 					<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="addTodo"></ion-icon>
 					<!-- <button @click="addTodo">add</button> -->
 				</ion-item>
@@ -28,13 +29,13 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent } from '@ionic/vue';
+import { IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge } from '@ionic/vue';
 import { chevronBackOutline,trashOutline,addCircleOutline } from 'ionicons/icons';
 
 export default defineComponent({
 
 	components:{
-		IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent
+		IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge
 	},
 
 	data(){
@@ -103,10 +104,10 @@ export default defineComponent({
 	color: red;
 }
 
-.inputB{
+/* .inputB{
 	background-color: black;
 	border: none;
 	outline-width: 0;
-}
+} */
 
 </style>
