@@ -7,14 +7,14 @@
 
 				<ion-title>My Lists</ion-title>
 				
-				<ion-icon :icon="addCircleOutline" size="large" slot="end"></ion-icon>
+				<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="newCategory"></ion-icon>
 			</ion-toolbar>
 		</ion-header>
 
 		<ion-content>
-			<ion-card @click="goToTodo()">
+			<ion-card @click="goToTodo()" v-for="category in categories" v-bind:key="category.id">
 				<ion-card-header>
-					<ion-card-title>Monday dinner</ion-card-title>
+					<ion-card-title>{{ category.text }}</ion-card-title>
 				</ion-card-header>
 				<ion-list>
 					<ion-item>
@@ -45,10 +45,33 @@ export default defineComponent({
 		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent
 	},
 
+	data() {
+		return{
+			category: '',
+			categories: [
+				{
+					id: Math.random(),
+					text: "Friday"
+				},
+			],
+		}
+	},
+
 	methods: {
 		goToTodo() {
 			this.$router.push('/todo'); 
 		},
+
+		newCategory() {
+			this.category = prompt("Name of Category");
+			if (this.category.length === 0){
+				return;
+			}
+			this.categories.push({
+				id: Math.random(),
+				text: this.category,
+			})
+		}
 	},
 
 
