@@ -12,10 +12,11 @@
 			<ion-list>
 				<ion-item-sliding>
 					<ion-item v-for="todo in todos" v-bind:key="todo.id">
+						<!-- v-for="badge in badges" v-bind:key="badge.id" -->
 						<ion-checkbox></ion-checkbox>
 						<ion-label>{{ todo.text }}</ion-label>
 						<ion-button @click="removeTodo(todo.id)">❌</ion-button>
-						<ion-badge @click="changeBadge">Important</ion-badge>
+						<ion-badge @click="openPicker()"> ➕ {{ badge.text }}</ion-badge>
 					</ion-item>
 
 					<ion-item-options side="end">
@@ -31,10 +32,10 @@
 					<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="addTodo"></ion-icon>
 					<!-- <button @click="addTodo">add</button> -->
 				</ion-item>
-				<div>
+				<!-- <div>
 					<ion-button @click="openPicker">SHOW PICKER</ion-button>
 					<p v-if="picked.task">picked: {{ picked.task.text }} </p>
-				</div>
+				</div> -->
 			</ion-list>
 		</ion-content>
 	</ion-page>
@@ -64,6 +65,8 @@ export default defineComponent({
 				picked: {
 				tasks: "",
 			},
+			badge: "",
+			badges: [],
 			todo: '',
 			todos: [
 				{
@@ -113,8 +116,10 @@ export default defineComponent({
 			{
 			text: "Confirm",
 			handler: (value) => {
-				this.picked = value;
-				console.log(`Got Value ${value}`);
+				this.badges.push({
+					id: Math.random(),
+					text: this.value,
+				})
 			},
 			},
 		],
