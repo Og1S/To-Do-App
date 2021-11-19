@@ -10,11 +10,20 @@
 
 		<ion-content>
 			<ion-list>
-				<ion-item v-for="todo in todos" v-bind:key="todo.id">
-					<ion-checkbox></ion-checkbox>
-					<ion-label>{{ todo.text }}</ion-label>
-					<ion-badge @click="changeBadge">NO</ion-badge>
-				</ion-item>
+				<ion-item-sliding>
+					<ion-item v-for="todo in todos" v-bind:key="todo.id">
+						<ion-checkbox></ion-checkbox>
+						<ion-label>{{ todo.text }}</ion-label>
+						<ion-button @click="removeTodo(todo.id)">❌</ion-button>
+						<ion-badge @click="changeBadge">Important</ion-badge>
+					</ion-item>
+
+					<ion-item-options side="end">
+						<ion-item-option @click="removeTodo(todo.id)">
+							<ion-icon slot="icon-only" :icon="trashOutline"></ion-icon>
+						</ion-item-option>
+					</ion-item-options>
+				</ion-item-sliding>
 
 				<ion-item>
 					<ion-checkbox :disabled="true"></ion-checkbox>
@@ -24,7 +33,7 @@
 				</ion-item>
 				<div>
 					<ion-button @click="openPicker">SHOW PICKER</ion-button>
-					<p v-if="picked.animal">picked: {{ picked.animal.text }}</p>
+					<p v-if="picked.task">picked: {{ picked.task.text }} </p>
 				</div>
 			</ion-list>
 		</ion-content>
@@ -33,27 +42,27 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,pickerController,IonButton } from '@ionic/vue';
+import { IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,pickerController,IonButton, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/vue';
 import { chevronBackOutline,trashOutline,addCircleOutline } from 'ionicons/icons';
 
 export default defineComponent({
 
 	components:{
-		IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,IonButton
+		IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,IonButton, IonItemSliding, IonItemOptions, IonItemOption
 	},
 
 	data(){
 		return{
 			pickingOptions: {
-				name: "animal",
+				name: "task",
 				options: [
-					{ text: "Dog", value: "dog" },
-					{ text: "Cat", value: "cat" },
-					{ text: "Bird", value: "bird" },
+					{ text: "Important", value: "important" },
+					{ text: "Can Wait", value: "canwait" },
+					{ text: "Free Time", value: "freetime" },
 				],
 				},
 				picked: {
-				animal: "",
+				tasks: "",
 			},
 			todo: '',
 			todos: [
@@ -81,13 +90,16 @@ export default defineComponent({
 			this.todo = ''
 		},
 
+		removeTodo(todoId) {
+			this.todos = this.todos.filter(todo => todo.id !== todoId);
+		},
+
 		clearAll() {
 			this.todos = []
 		},
 
 		goToHome(){
 		this.$router.push('/lists'); 
-			}
 		},
 
 		async openPicker() {
@@ -109,6 +121,7 @@ export default defineComponent({
 		});
 		await picker.present();
 		},
+	},
 
 	setup(){
 
@@ -135,10 +148,5 @@ export default defineComponent({
 	color: red;
 }
 
-/* .inputB{
-	background-color: black;
-	border: none;
-	outline-width: 0;
-} */
 
 </style>
