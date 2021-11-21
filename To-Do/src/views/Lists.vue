@@ -3,13 +3,30 @@
 
 		<ion-header>
 			<ion-toolbar>
-				<ion-icon :icon="reorderThreeOutline" size="large" slot="start"></ion-icon>
+				<ion-icon :icon="reorderThreeOutline" size="large" slot="start" @click="openMenu()"></ion-icon>
 
 				<ion-title>My Lists</ion-title>
 				
-				<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="newCategory"></ion-icon>
+				<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="presentAlertPrompt"></ion-icon>
 			</ion-toolbar>
 		</ion-header>
+
+		<ion-menu side="start" menu-id="menu" content-id="main">
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>All Lists</ion-title>
+				</ion-toolbar>
+			</ion-header>
+			
+			<ion-content>
+				<ion-list v-for="category in categories" v-bind:key="category.id">
+					<ion-item @click="goToTodo()">
+						<ion-label>{{ category.text }}</ion-label>
+					</ion-item>
+				</ion-list>
+			</ion-content>
+		</ion-menu>
+		<ion-router-outlet id="main"></ion-router-outlet>
 
 		<ion-content>
 			<ion-card @click="goToTodo()" v-for="category in categories" v-bind:key="category.id">
@@ -36,13 +53,13 @@
 
 
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonMenu, IonRouterOutlet, menuController, alertController } from '@ionic/vue';
 import { addCircleOutline,reorderThreeOutline} from 'ionicons/icons';
 
 export default defineComponent({
 
 	components:{
-		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent
+		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonMenu, IonRouterOutlet
 	},
 
 	data() {
@@ -62,16 +79,49 @@ export default defineComponent({
 			this.$router.push('/todo'); 
 		},
 
-		newCategory() {
-			this.category = prompt("Name of Category");
-			if (this.category.length === 0){
-				return;
-			}
-			this.categories.push({
-				id: Math.random(),
-				text: this.category,
-			})
-		}
+		openMenu() {
+			menuController.enable(true, 'menu');
+			menuController.open('menu');
+		},
+
+		async presentAlertPrompt() {
+			const alert = await alertController
+				.create({
+					cssClass: 'prompt',
+					header: 'Name of Category',
+					inputs: [
+						{
+						name: 'categoryName',
+						id: 'categoryNameId',
+						placeholder: 'My meeting',
+						},
+					],
+					buttons: [
+					{
+					text: 'Cancel',
+					role: 'cancel',
+					cssClass: 'cancelButton',
+					handler: () => {
+						console.log('Confirm Cancel')
+					},
+					},
+					{
+					text: 'Ok',
+					handler: data => {
+						this.category = data.categoryName;
+						if (this.category.length === 0){
+							return;
+						}
+						this.categories.push({
+							id: Math.random(),
+							text: this.category,
+						})
+					},
+					},
+				],
+			});
+		return alert.present();
+		},
 	},
 
 
