@@ -2,7 +2,10 @@
 	<ion-page>
 		<ion-header>
 			<ion-toolbar>
-				<ion-icon :icon="chevronBackOutline" size="large" class="backicon" slot="start" @click="goToHome()"></ion-icon>
+				<!-- <ion-icon :icon="chevronBackOutline" size="large" class="backicon" slot="start" @click="goToHome()"></ion-icon> -->
+				<ion-buttons>
+					<ion-back-button defaultHref="/lists" text="" />
+				</ion-buttons>
 				<ion-title>Monday dinner</ion-title>
 				<ion-icon :icon="trashOutline" size="large" class="trashicon" slot="end" @click="clearAll()"></ion-icon>
 			</ion-toolbar>
@@ -10,17 +13,18 @@
 
 		<ion-content>
 			<ion-list>
-				<ion-item-sliding>
-					<ion-item v-for="todo in todos" v-bind:key="todo.id">
+				<ion-item-sliding v-for="todo in todos" v-bind:key="todo.id">
+					<ion-item>
 						<!-- v-for="badge in badges" v-bind:key="badge.id" -->
-						<ion-checkbox></ion-checkbox>
+						<div slot="start" position="relative">
+							<ion-checkbox></ion-checkbox>
+						</div>
 						<ion-label>{{ todo.text }}</ion-label>
-						<ion-button @click="removeTodo(todo.id)">❌</ion-button>
-						<ion-badge @click="openPicker()"> ➕ {{ badge.text }}</ion-badge>
+						<ion-badge @click.stop="openPicker()"> ➕ {{ badge.text }}</ion-badge>
 					</ion-item>
 
 					<ion-item-options side="end">
-						<ion-item-option @click="removeTodo(todo.id)">
+						<ion-item-option @click="removeTodo(todo.id)" color="danger">
 							<ion-icon slot="icon-only" :icon="trashOutline"></ion-icon>
 						</ion-item-option>
 					</ion-item-options>
@@ -43,13 +47,13 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,pickerController,IonButton, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/vue';
+import { IonButtons, IonBackButton, IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,pickerController, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/vue';
 import { chevronBackOutline,trashOutline,addCircleOutline } from 'ionicons/icons';
 
 export default defineComponent({
 
 	components:{
-		IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,IonButton, IonItemSliding, IonItemOptions, IonItemOption
+		IonButtons, IonBackButton, IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge, IonItemSliding, IonItemOptions, IonItemOption
 	},
 
 	data(){
