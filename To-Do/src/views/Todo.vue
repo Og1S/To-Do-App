@@ -20,7 +20,7 @@
 							<ion-checkbox></ion-checkbox>
 						</div>
 						<ion-label>{{ todo.text }}</ion-label>
-						<ion-badge @click.stop="openPicker()"> ➕ {{ badge.text }}</ion-badge>
+						<ion-badge @click.stop="openPicker()">{{ todo.badge }}</ion-badge>
 					</ion-item>
 
 					<ion-item-options side="end">
@@ -31,7 +31,9 @@
 				</ion-item-sliding>
 
 				<ion-item>
-					<ion-checkbox :disabled="true"></ion-checkbox>
+					<div slot="start" position="relative">
+							<ion-checkbox :disabled="true"></ion-checkbox>
+						</div>
 					<ion-input type="text" v-model="todo" placeholder="Add ToDo" class="inputB"></ion-input>
 					<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="addTodo"></ion-icon>
 					<!-- <button @click="addTodo">add</button> -->
@@ -70,16 +72,17 @@ export default defineComponent({
 				tasks: "",
 			},
 			badge: "",
-			badges: [],
 			todo: '',
 			todos: [
 				{
 				id: Math.random(),
 				text: 'Meat',
+				badge: 'Important',
 				},
 				{
 				id: Math.random(),
 				text: 'Rice',
+				badge: 'Can Wait',
 				}
 			],
 		};
@@ -93,6 +96,7 @@ export default defineComponent({
 			this.todos.push({
 				id: Math.random(),
 				text: this.todo,
+				badge: 'Not Selected',
 			});
 			this.todo = ''
 		},
@@ -120,10 +124,11 @@ export default defineComponent({
 			{
 			text: "Confirm",
 			handler: (value) => {
-				this.badges.push({
-					id: Math.random(),
-					text: this.value,
-				})
+				this.todo.badge = value;
+				// this.todos.push({
+				// 	id: this.todo.id,
+				// 	badge: this.value,
+				// })
 			},
 			},
 		],
