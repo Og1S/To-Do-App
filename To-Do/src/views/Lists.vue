@@ -53,14 +53,10 @@
 
 
 import { defineComponent } from 'vue';
-import { IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonMenu, IonRouterOutlet, menuController, alertController } from '@ionic/vue';
+import {menuController, alertController} from '@ionic/vue';
 import { addCircleOutline,reorderThreeOutline} from 'ionicons/icons';
 
 export default defineComponent({
-
-	components:{
-		IonPage,IonIcon,IonCard,IonCardHeader,IonCardTitle,IonList,IonItem,IonLabel, IonHeader, IonToolbar, IonTitle, IonContent, IonMenu, IonRouterOutlet
-	},
 
 	data() {
 		return{

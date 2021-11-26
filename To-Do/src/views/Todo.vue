@@ -20,7 +20,7 @@
 							<ion-checkbox></ion-checkbox>
 						</div>
 						<ion-label>{{ todo.text }}</ion-label>
-						<ion-badge @click.stop="openPicker()">{{ todo.badge }}</ion-badge>
+						<ion-badge @click.stop="openPicker(todo.id)">{{ todo.badge }}</ion-badge>
 					</ion-item>
 
 					<ion-item-options side="end">
@@ -49,14 +49,12 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonButtons, IonBackButton, IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge,pickerController, IonItemSliding, IonItemOptions, IonItemOption} from '@ionic/vue';
+import { pickerController} from '@ionic/vue';
 import { chevronBackOutline,trashOutline,addCircleOutline } from 'ionicons/icons';
 
 export default defineComponent({
 
-	components:{
-		IonButtons, IonBackButton, IonPage,IonIcon,IonList,IonItem,IonCheckbox,IonLabel,IonTitle,IonToolbar,IonHeader,IonContent,IonInput,IonBadge, IonItemSliding, IonItemOptions, IonItemOption
-	},
+	
 
 	data(){
 		return{
@@ -113,7 +111,7 @@ export default defineComponent({
 		this.$router.push('/lists'); 
 		},
 
-		async openPicker() {
+		async openPicker(todoID) {
 		const picker = await pickerController.create({
 		columns: [this.pickingOptions],
 		buttons: [
@@ -124,11 +122,8 @@ export default defineComponent({
 			{
 			text: "Confirm",
 			handler: (value) => {
-				this.todo.badge = value;
-				// this.todos.push({
-				// 	id: this.todo.id,
-				// 	badge: this.value,
-				// })
+				const todo = this.todos.find(todo => todo.id == todoID);
+				todo.badge = value.task.text;
 			},
 			},
 		],
