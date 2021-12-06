@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
-import Home from '../views/Home.vue'
-import Lists from '../views/Lists.vue'
-import Todo from '../views/Todo.vue'
+import { RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,17 +9,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/lists',
     name: 'Lists',
-    component: Lists
+    component: () => import('@/views/lists/lists.vue')
   },
   {
-    path: '/todo',
-    name: 'Todo',
-    component: Todo
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
+    path: '/lists/:id',
+    name: 'List detail',
+    component: () => import('@/views/list-detail/list-detail.vue')
   }
 ]
 

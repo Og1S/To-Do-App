@@ -11,39 +11,10 @@
 			</ion-toolbar>
 		</ion-header>
 
-		<ion-menu side="start" menu-id="menu" content-id="main">
-			<ion-header>
-				<ion-toolbar>
-					<ion-title>All Lists</ion-title>
-				</ion-toolbar>
-			</ion-header>
-			
-			<ion-content>
-				<ion-list v-for="category in categories" v-bind:key="category.id">
-					<ion-item @click="goToTodo()">
-						<ion-label>{{ category.text }}</ion-label>
-					</ion-item>
-				</ion-list>
-			</ion-content>
-		</ion-menu>
-		<ion-router-outlet id="main"></ion-router-outlet>
-
 		<ion-content>
-			<ion-card @click="goToTodo()" v-for="category in categories" v-bind:key="category.id">
-				<ion-card-header>
-					<ion-card-title>{{ category.text }}</ion-card-title>
-				</ion-card-header>
-				<ion-list>
-					<ion-item>
-						<ion-label>Airline</ion-label>
-						<ion-badge>3 kg</ion-badge>
-					</ion-item>
-					<ion-item>
-						<ion-label>Airline</ion-label>
-						<ion-badge>2 piece</ion-badge>
-					</ion-item>
-				</ion-list>
-			</ion-card>
+			<A-list-card v-for="list in lists" :key="list.id" 
+				detailsPageName="List detail" :id="list.id" :text="list.text" />
+			
 		</ion-content>
 		
 	</ion-page>
@@ -56,25 +27,30 @@ import { defineComponent } from 'vue';
 import {menuController, alertController} from '@ionic/vue';
 import { addCircleOutline,reorderThreeOutline} from 'ionicons/icons';
 
-export default defineComponent({
+import AListCard from './_components/a-list-card.vue'
+
+
+export default {
+
+	components: {
+		AListCard
+	},
 
 	data() {
 		return{
+			addCircleOutline,
+			reorderThreeOutline,
 			category: '',
-			categories: [
+			lists: [
 				{
 					id: Math.random(),
-					text: "Friday"
+					text: "Friday",
 				},
 			],
 		}
 	},
 
 	methods: {
-		goToTodo() {
-			this.$router.push('/todo'); 
-		},
-
 		openMenu() {
 			menuController.enable(true, 'menu');
 			menuController.open('menu');
@@ -117,24 +93,14 @@ export default defineComponent({
 				],
 			});
 		return alert.present();
-		},
-	},
-
-
-	setup(){
-
-		return{
-			addCircleOutline,
-			reorderThreeOutline
 		}
 	}
-
-})
+}
 
 
 </script>
 
-<style>
+<style scoped>
 ion-icon {
 	color: lightskyblue;
 }
@@ -144,12 +110,6 @@ ion-header{
 	font-size: 40px;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-weight: 600;
-}
-
-ion-list{
-	font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	color: white;
-	font-weight: 300;
 }
 
 </style>
