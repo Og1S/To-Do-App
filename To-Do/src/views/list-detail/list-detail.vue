@@ -15,12 +15,13 @@
 		<ion-content>
 			<ion-list>
 
-			<A-list-item v-for="todo in todos" v-bind:key="todo.id" :id="todo.id" :text="todo.text" :badge="todo.badge"/>
+				<A-list-item v-for="todo in todos" v-bind:key="todo.id" :id="todo.id" :text="todo.text"
+					:badge="todo.badge" @item-delete="itemDelete" @open-picker="openPicker" />
 
 				<ion-item>
 					<div slot="start" position="relative">
-							<ion-checkbox :disabled="true"></ion-checkbox>
-						</div>
+						<ion-checkbox :disabled="true"></ion-checkbox>
+					</div>
 					<ion-input type="text" v-model="todo" placeholder="Add ToDo" class="inputB"></ion-input>
 					<ion-icon :icon="addCircleOutline" size="large" slot="end" @click="addTodo"></ion-icon>
 				</ion-item>
@@ -41,26 +42,33 @@ export default {
 		AListItem
 	},
 
-	data(){
-		return{
+	data() {
+		return {
 			chevronBackOutline,
 			trashOutline,
 			addCircleOutline,
 			pickingOptions: {
 				name: "task",
-				options: [
-					{ text: "Important", value: "important" },
-					{ text: "Can Wait", value: "canwait" },
-					{ text: "Free Time", value: "freetime" },
+				options: [{
+						text: "Important",
+						value: "important"
+					},
+					{
+						text: "Can Wait",
+						value: "canwait"
+					},
+					{
+						text: "Free Time",
+						value: "freetime"
+					},
 				],
-				},
-				picked: {
+			},
+			picked: {
 				tasks: "",
 			},
 			badge: "",
 			todo: '',
-			todos: [
-				{
+			todos: [{
 					id: Math.random(),
 					text: 'Meat',
 					badge: 'Important',
@@ -74,7 +82,7 @@ export default {
 		};
 	},
 
-	methods:{
+	methods: {
 		addTodo() {
 			if (this.todo.length === 0) {
 				return;
@@ -87,7 +95,7 @@ export default {
 			this.todo = ''
 		},
 
-		removeTodo(todoId) {
+		itemDelete(todoId) {
 			this.todos = this.todos.filter(todo => todo.id !== todoId);
 		},
 
@@ -95,32 +103,26 @@ export default {
 			this.todos = []
 		},
 
-		goToHome(){
-		this.$router.push('/lists'); 
-		},
-
 		async openPicker(todoID) {
-		const picker = await pickerController.create({
-		columns: [this.pickingOptions],
-		buttons: [
-			{
-				text: "Cancel",
-				role: "cancel",
-			},
-			{
-				text: "Confirm",
-				handler: (value) => {
-					const todo = this.todos.find(todo => todo.id == todoID);
-					todo.badge = value.task.text;
-			},
-			},
-		],
-		});
-		await picker.present();
+			const picker = await pickerController.create({
+				columns: [this.pickingOptions],
+				buttons: [{
+						text: "Cancel",
+						role: "cancel",
+					},
+					{
+						text: "Confirm",
+						handler: (value) => {
+							const todo = this.todos.find(todo => todo.id == todoID);
+							todo.badge = value.task.text;
+						},
+					},
+				],
+			});
+			await picker.present();
 		},
 	},
 }
-
 
 </script>
 
@@ -134,6 +136,5 @@ export default {
 .trashicon{
 	color: red;
 }
-
 
 </style>

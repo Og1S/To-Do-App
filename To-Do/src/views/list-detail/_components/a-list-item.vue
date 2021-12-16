@@ -7,7 +7,7 @@
 
 			<ion-label>{{ text }}</ion-label>
 
-			<ion-badge @click.stop="openPicker(id)">{{ badge }}</ion-badge>
+			<ion-badge @click.stop="$emit('openPicker', id)">{{ badge }}</ion-badge>
 		</ion-item>
 
 		<ion-item-options side="end">
@@ -37,49 +37,18 @@ export default {
 		}
 	},
 
-	data(){
-		return{
+	data() {
+		return {
 			chevronBackOutline,
 			trashOutline,
 			addCircleOutline,
-			pickingOptions: {
-				name: "task",
-				options: [
-					{ text: "Important", value: "important" },
-					{ text: "Can Wait", value: "canwait" },
-					{ text: "Free Time", value: "freetime" },
-				],
-				},
-				picked: {
-				tasks: "",
-			},
 		};
 	},
 
-	methods:{
+	methods: {
 
 		removeTodo(todoId) {
-				this.todos = this.todos.filter(todo => todo.id !== todoId);
-			},
-
-		async openPicker(todoID) {
-		const picker = await pickerController.create({
-		columns: [this.pickingOptions],
-		buttons: [
-			{
-			text: "Cancel",
-			role: "cancel",
-			},
-			{
-			text: "Confirm",
-			handler: (value) => {
-				const todo = this.todos.find(todo => todo.id == todoID);
-				todo.badge = value.task.text;
-			},
-			},
-		],
-		});
-		await picker.present();
+			this.$emit("itemDelete", todoId)
 		},
 
 	}
@@ -96,6 +65,5 @@ export default {
 .trashicon{
 	color: red;
 }
-
 
 </style>

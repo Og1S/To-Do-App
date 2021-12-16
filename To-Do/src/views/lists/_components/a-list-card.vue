@@ -9,7 +9,7 @@
 				<ion-label>Airline</ion-label>
 				<ion-badge>3 kg</ion-badge>
 			</ion-item>
-			
+
 			<ion-item>
 				<ion-label>Airline</ion-label>
 				<ion-badge>2 piece</ion-badge>

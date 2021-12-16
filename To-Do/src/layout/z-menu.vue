@@ -5,10 +5,10 @@
 				<ion-title>All Lists</ion-title>
 			</ion-toolbar>
 		</ion-header>
-		
+
 		<ion-content>
 			<ion-list v-for="category in categories" v-bind:key="category.id">
-				<ion-item @click="goToTodo()">
+				<ion-item @click="this.$router.push('/lists/:id'); closeMenu()">
 					<ion-label>{{ category.text }}</ion-label>
 				</ion-item>
 			</ion-list>
@@ -17,17 +17,25 @@
 </template>
 
 <script>
+
+import {menuController} from '@ionic/vue';
+
 export default {
 	data() {
-		return{
-			categories: [
-				{
-					id: Math.random(),
-					text: "Friday"
-				},
-			],
+		return {
+			categories: [{
+				id: Math.random(),
+				text: "Friday"
+			}, ],
 		}
 	},
+
+	methods: {
+		closeMenu() {
+			menuController.close()
+		},
+	}
+
 }
 </script>
 
